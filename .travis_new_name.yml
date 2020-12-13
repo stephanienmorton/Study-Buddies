@@ -1,0 +1,27 @@
+language: python
+python:
+- '3.8'
+install:
+- pip install -r requirements.txt
+
+services:
+- postgresql
+before_script:
+- psql -c 'create database test_db;' -U postgres
+script:
+- python3 manage.py makemigrations VSB
+- python3 manage.py migrate
+- python3 manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: TX90ji4dHVOxN1liY7b+tRksShYM212w6wiA4290Eki5HyizLUQ1BEXWe/+nxmu0XqgV63vS612N+KSQFp8nEhS+gmfrgfyrcYLa6AtOoxRQ+bbsXUsqq/7k5TazNjnTCavPfwhptRGQDYo1KzrbF4Tm1t4IAKoESk308Oq5tFwtKCIMOyU8S1wG9IgAcdY0rMu3LBb+lhI3jApGwV3do/NVCG9vWfHS7a79shpqG8nhvsX0G2Gb8mGp+nYCHUUo9bfAWKNO5QUH/gRnEkPvFWO8AzOiuD4ZCqjDb1ybii/vxSQYH/mFeahmWDlsQJLpPPWwEPQRkX2veWPsFQIgT736rmKCSyF39cFmh2g8P7WVgEKXMn6opVxJC4DefAPk6+R/b0SrgI9MfmDcS/RdMGr11bV0lEwPVIG8mUh6WP8/IjY0YoDg6SsT0CeK9Wb/BAgrljhApuCqelSp6969nRjxNJqKPFIheVLYuQLWtv2Ml2Oz7RpWYDMYwlaIdNmkBeA8uC4E90aSel8UjeIfBcHbEAUlWO6Sf4h0gjAsgbXM56xXLDNjMxXqFtG0ZSI1jL5bjOrlhirle6x75ynvdwCiqJ9uDB0U4ohu/NkSZA6+DSS+iXvSzoLxREL3X2txJ0ToZwFxZ0RB1HF7WC8T8D2fj8NUwFloIKOrdcjU6co=
+  app: cs3240-f20-t2-04
+  on:
+    repo: uva-cs3240-f20/project-2-04
+    branch: master
+  run:
+  - "heroku maintenance:on"
+  - "python3 manage.py makemigrations VSB"
+  - "python3 manage.py migrate"
+  - "heroku maintenance:off"

@@ -1,0 +1,195 @@
+<!-- /**
+* REFERENCES
+* Title: Bootstrap snippet. bs4 simple event list
+* Author: Bootdey
+* Date: November 23rd (Last Accessed)
+* Code version: v4.3.1
+* URL: https://www.bootdey.com/snippets/view/bs4-simple-event-list
+* Software License: MIT
+*
+* Title: Alert
+* Author: Bootstrap
+* Date: November 23th (Last Accessed)
+* Code version: v4.0
+* URL: https://getbootstrap.com/docs/4.0/components/alerts/
+* Software License: MIT
+***/ -->
+<html lang="en">
+
+<head>
+    {% include "VSB/modules/head.html" %}
+    <title>Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'VSB/profile-topbar.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body class="bg-light h-100">
+    <main>
+        {% include "VSB/modules/profile-topbar.html" %}
+
+        <div class="d-md-flex h-md-100 align-items-center">
+
+            <!-- First Half -->
+
+            <div class="col-md-6" style="padding: 50px">
+                <div class="col-md-6 offset-md-1 border flex-grow-1">
+                    <div class="row m-0">
+                        {% if focused_event %}
+                        <div class="col-12 m-1 border">
+                            <div class="row m-0">
+                                <div class="col-md-8 m-0">
+                                    <h5>{{ focused_event.name }}</h5>
+                                </div>
+                                <div class="col-md-4 m-0">
+                                    <p>{{ focused_event.time }}</p>
+                                </div>
+                            </div>
+                            <div class="row m-0">
+                                <p>{{ focused_event.description }}</p>
+                            </div>
+                            <div class="row m-0">
+                                <a class="btn btn-danger"
+                                    href="{% url 'VSB:account_schedule_removeitem' focused_event.id %}">Delete</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row m-0">
+                        {% if error_message %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error_message }}</strong>
+                        </div>
+                        {% endif %}
+                        <div class="col-12 m-0">
+                            <div class="row m-0">
+                                <h5 style="padding-top: 10px;">Add an event:</h5>
+                            </div>
+                            <div class="row m-0">
+                                <form action="{% url 'VSB:account_schedule_additem' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-lg" name="add_event_name"
+                                            placeholder="Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea type="text" class="form-control" name="add_event_desc"
+                                            placeholder="Description" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" name="add_event_date">
+                                        <input type="time" class="form-control" name="add_event_time">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Add Event</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Half -->
+
+            <div class="col-md-6">
+
+                {% if daily_events %}
+
+                <div class="row ">
+                    <div class="col-md-8 grid-margin-md stretch-card d-flex_">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h4 class="card-title">All Events</h4>
+                                </div>
+                                {% for event_bucket in daily_events %}
+                                {% for event in event_bucket %}
+                                <div class="border p-3 mb-3">
+                                    <div class="border-bottom pb-3">
+                                        <div class="row">
+                                            <div class="col-sm-4 border-right-lg border-right-md-0">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <h1 class="mb-0 mr-2 text-primary font-weight-normal">
+                                                        {{ event.time | date:"j" }}</h1>
+                                                    <div>
+                                                        <p class="font-weight-bold mb-0 text-dark">
+                                                            {{ event.time | date:"M" }}</p>
+                                                        <p class="mb-0">{{ event.time | date:"Y" }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 pl-3">
+                                                <p class="text-dark font-weight-bold mb-0">{{ event.name }}</p>
+                                                <p class="mb-0">{{ event.time | date:"g" }}:{{ event.time | date:"i" }}
+                                                    {{event.time | date:"a"}}</p>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div style="position:absolute; right:40;" class="float-right">
+                                            <a href="{% url 'VSB:account_schedule_removeitem' event.id %}"><span
+                                                    class="fa fa-trash"></span></a>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                {% endfor %}
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% else %}
+
+                <h2>No events currently scheduled!</h2>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+
+        <!-- <div class="row m-0 mt-2 justify-content-center">
+                <div class="col-md-3 offset-md-1 p-0">
+                    {% for event_bucket in daily_events %}
+                    {% for event in event_bucket %}
+                    <a href="{% url 'VSB:account_schedule' %}?focused_event={{ event.id }}" style="text-decoration: none; color: inherit;">
+                        <div class="row m-0 p-0 bg-info rounded
+                        {% if forloop.last %} mb-3 {% else %} mb-1 {% endif %}
+                        ">
+                            <div class="col-md-3">
+                                {% if forloop.first %}
+                                {{ event.time | date:"M" }}. {{ event.time | date:"j" }}
+                                <br>
+                                {% endif %}
+                                {{ event.time | date:"g" }}:{{ event.time | date:"i" }}
+                            </div>
+                            <div class="col p-0">
+                                {{ event.name }}
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+                
+            </div> -->
+
+    </main>
+
+</body>
+
+</html>

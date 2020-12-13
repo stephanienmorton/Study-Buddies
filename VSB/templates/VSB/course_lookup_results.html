@@ -1,0 +1,75 @@
+<!-- /*
+* REFERENCES
+* Title: ListGroup
+* Author: Bootstrap
+* Date: November 15th (Last Accessed)
+* Code version: v4.0
+* URL: https://getbootstrap.com/docs/4.0/components/list-group/
+* Software License: MIT
+*
+*
+* Title: Alert
+* Author: Bootstrap
+* Date: November 23th (Last Accessed)
+* Code version: v4.0
+* URL: https://getbootstrap.com/docs/4.0/components/alerts/
+* Software License: MIT
+*/ -->
+
+
+<html lang="en">
+
+<head>
+    {% include "VSB/modules/head.html" %}
+    <title>Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'VSB/profile-topbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'VSB/profile.css' %}" />
+</head>
+
+<body class="d-flex flex-column  h-100 bg-light">
+    {% if alert %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert" style="text-align: center;">
+        {{ alert }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <main class="flex-shrink-0">
+        {% include "VSB/modules/profile-topbar.html" %}
+        <div class="list-group outer">
+            <h2 class="select_course">Select course to add:</h2>
+
+
+            {%if course_list %}
+            <ul class="list-group list-group-flush">
+                {% for course in course_list %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ course.name }}
+                    {% url 'VSB:add_course' as add_url %}
+                    {% with course.id|stringformat:'i' as id %}
+                    <a class="badge badge-primary badge-pill text-white" style="text-decoration: none; color: inherit;"
+                        href="{{ add_url|add:'?course_id='|add:id }}">Add</a>
+                    {% endwith %}
+                </li>
+                {% endfor %}
+            </ul>
+            {%else%}
+
+            <h4> No Courses Match this Search!
+            </h4>
+
+            {%endif%}
+            <div style="padding-top: 10px;">
+                <a class="badge badge-primary badge-pill text-white" style="text-decoration: none; color: inherit;"
+                    href="/">Back</a>
+            </div>
+
+
+        </div>
+
+    </main>
+</body>
+
+</html>

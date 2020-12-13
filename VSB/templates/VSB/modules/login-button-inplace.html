@@ -1,0 +1,8 @@
+{% if user.is_authenticated %}
+    {% url 'VSB:logout' as logout_url %}
+    {% with logout_url|add:'?src='|add:request.path as my_url %}
+    <a type="button" class="btn btn-primary" href="{{ my_url }}">Logout</a>
+    {% endwith %}
+{% else %}
+    <a type="button" class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">Google</a>
+{% endif %}

@@ -1,0 +1,151 @@
+<html lang="en">
+
+<head>
+    {% include "VSB/modules/head.html" %}
+    <title>Account</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'VSB/profile.css' %}" />
+
+</head>
+
+<!-- edit profile information -->
+<body>
+
+    {% include "VSB/modules/profile-topbar.html" %}
+
+    <main>
+        <div class="container-md outer" style="margin-top: 50px; margin-bottom: 70px;">
+            {% if error == "1" %}
+            <div class="alert alert-danger">
+                <strong>A group with that name already exists.  Select another name.</strong>
+            </div>
+            {% endif %}
+            <div class="col d-flex justify-content-center p-2">
+                <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseInfo" arai-expanded="false" aria-controls="collapseInfo">Search Information</button>
+            </div>
+            <div id="collapseInfo" class="collapse">
+                <div class="col-md-6 offset-md-3 bg-light border rounded">
+                    <h3>Search Information</h3>
+                    <div class="row m-1">
+                        <div class="col-4">
+                            Score
+                        </div>
+                        <div class="col">
+                            Represents compatability between you and the members of the group.
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col-4">
+                            Comfort
+                        </div>
+                        <div class="col">
+                            Higher values indicate users with comfort levels high in areas one is lacking.
+                        </div>
+                    </div>
+                    <div class="row m-1">
+                        <div class="col-4">
+                            Availability
+                        </div>
+                        <div class="col">
+                            How much your availability listed is overlapped by group members.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if group_data|length %}
+                <div class="col-6 offset-3">
+                    <ul class="p-1">
+                        {% for data in group_data %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="col">
+                                <div class="row">
+                                    <h4>{{ data.group.default_name }}</h4>
+                                </div>
+                                <div class="row">
+                                    Members: {{ data.group.groupuser_set.all|length }}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row">
+                                            Score:
+                                        </div>
+                                        <div class="row">
+                                            Comfort:
+                                        </div>
+                                        <div class="row">
+                                            Availability:
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            {{data.score}}
+                                        </div>
+                                        <div class="row">
+                                            {{data.comfort_score}}
+                                        </div>
+                                        <div class="row">
+                                            {{data.availability_score}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="btn btn-success" href="{% url 'VSB:match_join_group' data.group.id %}">Join</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+            <form action="{% url 'VSB:match_create_group' %}" method="POST" class="form-group">
+                {% csrf_token %}
+                <h1>Oops! No groups matching your request were found.</h1>
+            </form>
+            {% endif %}
+            {% if create_allowed %}
+            <div class="row d-flex justify-content-center">
+                <h3>Would you like to create a new group?</h3>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <a class="btn btn-danger m-1" href="{% url 'VSB:account_matching' %}">NO</a>
+                <button class="btn btn-success m-1" data-target="#CreateGroup" data-toggle="modal">YES</button>
+                <div class="modal fade" id="CreateGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>Create a New Group</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+    
+                                <form action="{% url 'VSB:match_create_group' %}" method="POST" class="form-group">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="group_name">Enter the name for the group:</label>
+                                        <input type="text" class="form-control" name="group_name" id="group_name">
+                                    </div>
+    
+                                    <button type="submit" class="btn btn-outline-primary">Create</button>
+                                </form>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+
+        
+    </main>
+
+</body>
+
+</html>

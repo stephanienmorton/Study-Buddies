@@ -1,0 +1,34 @@
+.navbar-images {
+	max-height: 50px;
+}
+
+.qr-codes {
+	opacity: 1;
+}
+
+.information-pane {
+	margin-top: 10px;
+}
+
+.selection-bar {
+	max-height: 20pt;
+}
+
+.information-loader {
+	height: 300px;
+}
+
+.overlayed {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	opacity: 1;
+	display: none;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.5);
+}

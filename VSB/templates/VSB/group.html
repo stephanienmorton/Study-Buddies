@@ -1,0 +1,81 @@
+<!-- /*
+* NOT USED
+*/ -->
+<html class="h-100" lang="en">
+
+<head>
+    {% include "VSB/modules/head.html" %}
+    <title>Group Testing Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'VSB/group.css' %}">
+    <script src="{% static 'tween.js/tween.umd.js' %}"></script>
+    <script src="{% static 'VSB/group.js' %}"></script>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    {% include "VSB/modules/header.html" %}
+
+    <main class="flex-shrink-g">
+        <div class="container-fluid" style="z-index: 1">
+            <div class="row" name="Body">
+                <div class="col-md-8 offset-md-1 p-0" name="Content">
+                    <nav class="navbar bg-dark">
+                        <label class="text-white">tmp</label>
+                    </nav>
+                    <div class="row no-gutters">
+                        <div class="col-4">
+                            <img src="https://img.pngio.com/zoom-zoom-zoom-cloud-meetings-hd-png-download-640x640-zoom-png-840_683.png"
+                                alt="Zoom" class="navbar-images"></img>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <img src="https://d3sq5bmi4w5uj1.cloudfront.net/images/brochure/logo.png?1513786503"
+                                    alt="GroupMe" class="img-fluid navbar-images" style="cursor: pointer"
+                                    onclick="QRToggle(1)"></img>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-primary float-right align-middle" type="button"
+                                href="https://piazza.com/">Piazza</a>
+                        </div>
+                    </div>
+                    <div class="row no-gutters information-pane">
+                        <div class="container-fluid p-0">
+                            <div class="row no-gutters">
+                                <div class="col-md-2 border selection-bar">
+                                    Bar 1
+                                </div>
+                                <div class="col-md-2 border selection-bar">
+                                    Bar 2
+                                </div>
+                                <div class="col-md-2 border selection-bar">
+                                    Bar 3
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid information-loader border">
+                            Hello all.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 border p-0" name="Sidebar">
+
+                </div>
+            </div>
+        </div>
+        <div class="overlayed" onClick="QRToggle(0)">
+            <div class="row">
+                <div class="col-4 mx-auto">
+                    <!--https://stackoverflow.com/questions/43226511/how-can-i-center-an-image-in-bootstrap-->
+                    <h3 class="text-white text-center">Click anywhere to remove this overlay.</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1024px-QR_code_for_mobile_English_Wikipedia.svg.png"
+                        class="qr-codes img-fluid" style="align-content: center"></img>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include "VSB/modules/footer.html" %}
+</body>
+
+</html>

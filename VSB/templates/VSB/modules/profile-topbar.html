@@ -1,0 +1,70 @@
+<!-- REMBMER TO INCLUDE profile-topbar.css IN THE HEAD! -->
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'VSB/profile-topbar.css' %}" />
+
+
+<div class="container-fluid p-0">
+    <div class="green">
+        <div class="col logout">
+            {% include 'VSB/modules/login-button.html' %}
+        </div>
+
+
+    </div>
+    {% if icon %}
+    <img class="profile_pic" src="{{ icon }}" class="rounded-circle">
+    {% else %}
+    <img class="profile_pic" src="{% static 'media/media/default.png' %}" class="rounded-circle">
+    {% endif %}
+    <div class=" info">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col-md-bottom">
+                    {% if user.profile.display_name == '' or user.profile.display_name == None%}
+                    <h1 class="align-middle name" style="font-size: 3vw;">{{user.first_name}} {{user.last_name}}</h1>
+
+                    {% else %}
+                    <h1 class="align-middle name" style="font-size: 3vw;">{{user.profile}}</h1>
+
+                    {% endif %}
+                    <p class="college">{{user.profile.university}}</p>
+                </div>
+                <div class="col">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 justify-content-between w-100">
+                <li class="nav-item {% if active_index == 0 %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'VSB:account_matching' %}">Get Matched</a>
+                </li>
+                <li class="nav-item {% if active_index == 1 %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'VSB:account_groups' %}">Groups</a>
+                </li>
+                <li class="nav-item {% if active_index == 2 %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'VSB:account_schedule' %}">Schedule</a>
+                </li>
+                <li class="nav-item {% if active_index == 3 %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'VSB:account_settings' %}">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

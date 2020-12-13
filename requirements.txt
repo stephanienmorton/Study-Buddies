@@ -1,0 +1,10 @@
+gunicorn
+Django
+django-heroku
+social-auth-app-django
+Pillow
+psycopg2
+psycopg2-binary
+dj-database-url
+numpy
+GroupyAPI

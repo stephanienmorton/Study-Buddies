@@ -1,0 +1,10 @@
+<header>
+    <nav class="navbar bg-dark navbar-fixed-top">
+        <a class="navbar-brand text-info" href="{% url 'VSB:home' %}">A Proof of Concept</a>
+        {% if user.is_authenticated %}
+            <a class="btn btn-primary" href="{% url 'VSB:account' %}">Profile</a>
+        {% endif %}
+        {% include 'VSB/modules/login-button-inplace.html' %}
+    </nav>
+   
+</header>

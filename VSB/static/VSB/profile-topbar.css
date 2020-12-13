@@ -1,0 +1,60 @@
+.profile_pic{
+	z-index: 10;
+	position: absolute;
+	top:20px;
+	width: 14em; /* width of container */
+    height: 14em; /* height of container */
+    object-fit: cover;
+	border: 2px solid black;
+	border-radius: 50%;
+	margin-left: 1.5em;
+	background-color: white;
+}
+
+
+
+
+
+.college{
+	text-align: center;
+	color: EEEEFF;
+	font-size: 20px;
+}
+
+.name{
+	color: EEEEFF;
+}
+
+.info {
+	vertical-align: middle;
+	background-color: #565658;
+	padding-bottom: 1em;
+	padding-top: 1em; 
+}
+
+
+.green {
+	padding-top: 2em;
+	padding-left: 8em;
+	padding-bottom: 8em;
+	background-color: #67e7b4;
+}
+
+.navbar-expand-md{
+	padding-left: 50px;
+	padding-right: 50px;
+	font-size: 15pt; 
+	background-color: #311d1d59; 
+	text-transform: uppercase;
+	font-family: 'Roboto', sans-serif;
+}
+
+.logout{
+	text-align: right;
+	font-size:2vw;
+
+}
+
+body{
+	font-family: 'Roboto', sans-serif;
+}

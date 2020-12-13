@@ -1,0 +1,121 @@
+<!-- /**
+* REFERENCES
+* Title: ScrollingNav
+* Author: StartBootstrap
+* Date: November 23rd (Last Accessed)
+* Code version: v4.2.3
+* URL: https://startbootstrap.com/template/scrolling-nav
+* Software License: MIT
+**/ -->
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    {% include "VSB/modules/head.html" %}
+    <title>Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'VSB/profile-topbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'VSB/profile.css' %}" />
+    <link href="{% static 'VSB/scrolling-nav.css' %}" rel="stylesheet">
+</head>
+
+
+
+<body class="d-flex flex-column h-100 bg-white">
+    <main class="flex-shrink-0">
+        {% include "VSB/modules/profile-topbar.html" %}
+
+        {% if alert %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert" style="text-align: center;">
+            {{ alert }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+
+        {% if courses and availability %}
+        <section id="services" class="bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Create/Join Group!</h2>
+                        <p class="lead">Select a course to get matched with your new group!</p>
+
+                        <form method="post" id="matchingForm" action="{% url 'VSB:account_match_run' %}">
+                            {% csrf_token %}
+                            <select class="selectpicker day" title="Course" name="course_id">
+                                {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="btn btn-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% elif courses %}
+        <section id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Add Your Availability First!</h2>
+                        <p class="lead">If you haven't done so... navigate back to the settings page to select your
+                            availability before getting matched.</p>
+                        <a style="margin-top: 20px;" href="{% url 'VSB:home' %}" class="btn btn-success">Let's go!</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% elif availability %}
+        <section id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Add Your Classes First!</h2>
+                        <p class="lead">If you haven't done so... navigate back to the settings page to update your
+                            course information before getting matched.</p>
+                        <a style="margin-top: 20px;" href="{% url 'VSB:home' %}" class="btn btn-success">Let's go!</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% else %}
+        <section id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Add Your Classes and Availability First!</h2>
+                        <p class="lead">If you haven't done so... navigate back to the settings page to update your
+                            course information and availability before getting matched.</p>
+                        <a style="margin-top: 20px;" href="{% url 'VSB:home' %}" class="btn btn-success">Let's go!</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    </main>
+</body>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</html>

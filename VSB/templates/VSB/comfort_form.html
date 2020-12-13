@@ -1,0 +1,72 @@
+<!-- /*
+* REFERENCES
+* Title: Bootsrap Select
+* Author: SnapAppointments
+* Date: November 15th (Last Accessed)
+* Code version: v4.0
+* URL: https://developer.snapappointments.com/bootstrap-select/
+* Software License: MIT
+*
+*
+* Title: Alert
+* Author: Bootstrap
+* Date: November 23th (Last Accessed)
+* Code version: v4.0
+* URL: https://getbootstrap.com/docs/4.0/components/alerts/
+* Software License: MIT
+*/ -->
+<html lang="en">
+
+<head>
+    {% include "VSB/modules/head.html" %}
+    <title>Account</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'VSB/profile.css' %}" />
+
+</head>
+
+<!-- edit profile information -->
+
+<body>
+
+    {% include "VSB/modules/profile-topbar.html" %}
+
+    <main>
+        <div class="container-md outer" style="margin-top: 50px; margin-bottom: 70px;">
+            <h2>Select how comfortable you are with each topic.</h2>
+            <h5 style="padding-bottom: 20px;">1-not comfortable 5-very comfortable</h5>
+            <form action="{% url 'VSB:account_change_comfort_save' %}" method="POST" class="form-group">
+                {% csrf_token %}
+                <input type="hidden" name="course_id" value="{{ course_id }}">
+                {% if request.GET.match %}
+                <input type="hidden" name="match" value="1">
+                {% endif %}
+                <div class="container-fluid">
+                    <div class="row">
+                        {% for current_value, topic in topics %}
+                        <div class="col-md">
+                            <p>{{topic}}</p>
+                            <select class="selectpicker day" title="{{ value1 }}" name="topic{{forloop.counter0}}">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                </optgroup>
+                            </select>
+                            <p>Current: {{current_value}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-success" type="submit">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>
